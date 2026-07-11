@@ -1,0 +1,6 @@
+#!/bin/bash
+# contorch installer — thin shim served at https://contorch.com/install
+# The canonical, reviewable script lives in the context-orchestrator repo:
+#   https://github.com/contorch/context-orchestrator/blob/main/bootstrap.sh
+set -euo pipefail
+exec /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/contorch/context-orchestrator/main/bootstrap.sh)"

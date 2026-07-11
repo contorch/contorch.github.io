@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>contorch — give your agents a memory</title>
+<meta name="description" content="contorch is a local, persistent context layer for coding agents. Meetings transcribe themselves, tasks and sources accumulate, repo knowledge sticks — and any agent that speaks MCP can search all of it, in any session.">
+<meta property="og:title" content="contorch — give your agents a memory">
+<meta property="og:description" content="A local, persistent context layer for coding agents. Captured meetings, tasks, sources, repo knowledge — searchable from Claude Code, Codex, anything that speaks MCP.">
+<meta property="og:url" content="https://contorch.com">
+<link rel="icon" type="image/png" href="favicon-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#">
+    <img src="logo-512.png" alt="" width="26" height="37">
+    <span>contorch</span>
+  </a>
+  <div class="nav-links">
+    <a href="#how">How it runs</a>
+    <a href="#install">Install</a>
+    <a href="https://github.com/contorch" rel="noopener">GitHub</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="ember" aria-hidden="true"></div>
+  <div class="hero-copy">
+    <p class="eyebrow">context&nbsp;+&nbsp;torch</p>
+    <h1>Give your agents a&nbsp;memory.</h1>
+    <p class="sub">contorch is a local, persistent context layer for coding agents.
+    Meetings transcribe themselves, tasks and sources accumulate, repo knowledge
+    sticks — and any agent that speaks MCP (Claude&nbsp;Code, Codex, anything)
+    can search all of it, in any session, on any day.</p>
+    <div class="install-cta">
+      <code id="brew-cmd"><span class="prompt">$</span> curl -fsSL contorch.com/install | bash</code>
+      <button id="copy-btn" type="button" aria-label="Copy install command">Copy</button>
+    </div>
+    <p class="cta-note">Free · Apache-2.0 · local-first · <a href="#how">see how it runs ↓</a></p>
+  </div>
+
+  <div class="terminal" id="terminal" aria-label="Demo: context accumulating from meetings, tasks, and sources, then recalled by an agent in a later session">
+    <div class="term-bar"><i></i><i></i><i></i><span>the context layer</span></div>
+    <div class="term-body" id="term-body">
+      <noscript>
+        <pre class="term-static">● meeting ended → meeting-2026-07-11.md indexed
++ add_source   auth-spec-v2.md → task auth-refactor
++ repo_knowledge  "staging deploys need the flag service up first"
+
+# a week later — new laptop, fresh session, any agent
+> pick up the auth-refactor work
+
+agent   loading context: 3 sources · 2 meetings · repo knowledge
+        Last time you decided JWT rotation ships behind a flag —
+        your words: "flag first, cleanup after the freeze."
+        → meeting-2026-07-11.md, 10:02</pre>
+      </noscript>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="how" class="pipeline">
+  <h2><span class="hash">##</span> How it runs</h2>
+  <p class="section-sub">Context flows in from everywhere you work. It comes back out wherever an agent asks.</p>
+  <ol class="steps">
+    <li>
+      <p class="step-k">1 · Feed</p>
+      <h3>Everything you touch becomes context.</h3>
+      <p>Meetings capture themselves — a macOS daemon notices your mic go live and
+      transcribes both sides as <code>Me</code> and <code>Them</code>, no bot in the
+      call. Drop in links, files, and notes. Create tasks. Agents save repo gotchas
+      as they hit them.</p>
+    </li>
+    <li>
+      <p class="step-k">2 · Orchestrate</p>
+      <h3>One local index over all of it.</h3>
+      <p>context-orchestrator keeps tasks and sources in SQLite and every sentence —
+      transcripts, notes, repo knowledge — in a local vector index, searchable by
+      meaning. Plain files on your disk. No cloud sync, no account.</p>
+    </li>
+    <li>
+      <p class="step-k">3 · Recall</p>
+      <h3>Any agent picks up where you left off.</h3>
+      <p>Over MCP, an agent loads a task's full manifest or asks
+      <em>“what did we decide about pricing?”</em> and gets the answer with the
+      meeting and timestamp it came from. That's the torch: context carried from
+      every past session into the current one.</p>
+    </li>
+  </ol>
+</section>
+
+<section class="thesis">
+  <p>Most of what an agent needs already happened —<br>
+  in a conversation, a doc, a lesson learned.<br>
+  <span>contorch just keeps it.</span></p>
+</section>
+
+<section id="install" class="install">
+  <h2><span class="hash">##</span> Install</h2>
+  <p class="section-sub">One command stands up the whole stack. Re-run it anytime; it's idempotent.</p>
+  <div class="install-grid">
+    <div class="card">
+      <p class="step-k">1 · Bootstrap</p>
+      <pre><code><span class="prompt">$</span> curl -fsSL contorch.com/install | bash</code></pre>
+      <p>Installs the context-orchestrator MCP server, the meeting-capture daemon,
+      a menu-bar monitor, and the Claude&nbsp;Code auto-context hook. Missing
+      prerequisites arrive via Homebrew.</p>
+    </div>
+    <div class="card">
+      <p class="step-k">2 · Click what macOS asks you to</p>
+      <p>Two permissions for meeting capture: <strong>Screen &amp; System Audio
+      Recording</strong> and <strong>Microphone</strong>. The script ends with a
+      punch-list, and <code>doctor</code> commands verify every piece.</p>
+      <pre><code><span class="prompt">$</span> transcript-watcher doctor
+<span class="ok">✓</span> all checks passed</code></pre>
+    </div>
+    <div class="card">
+      <p class="step-k">3 · Optional: Gemini key</p>
+      <p>Meeting transcription runs on Gemini — a free key from
+      <a href="https://aistudio.google.com/apikey" rel="noopener">aistudio.google.com/apikey</a>,
+      about $0.0002 per meeting-minute beyond the free tier. Skip it and everything
+      else stays fully local: tasks, sources, search, clipboard transcripts.</p>
+      <p class="quiet">Then restart Claude Code and just work.</p>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <ul>
+    <li><strong>Local-first.</strong> SQLite and a local vector index on your disk.
+    No cloud sync, no account. Meeting audio goes to Gemini for transcription only,
+    then gets deleted.</li>
+    <li><strong>Open source.</strong> Apache-2.0, on
+    <a href="https://github.com/contorch" rel="noopener">GitHub</a>. Read every line
+    that can hear you.</li>
+    <li><strong>Your agents, not ours.</strong> Standard MCP — Claude Code today;
+    anything that speaks the protocol tomorrow.</li>
+    <li><strong>Plain files.</strong> Transcripts are Markdown in
+    <code>~/transcripts</code> — yours to grep, edit, or delete.</li>
+  </ul>
+</section>
+</main>
+
+<footer>
+  <img src="logo-512.png" alt="contorch" width="20" height="28">
+  <p>contorch — context, carried forward.</p>
+  <div class="foot-links">
+    <a href="https://github.com/contorch/context-orchestrator" rel="noopener">context-orchestrator</a>
+    <a href="https://github.com/contorch/meeting-capture" rel="noopener">meeting-capture</a>
+    <a href="https://github.com/contorch/meeting-capture/blob/main/LICENSE" rel="noopener">Apache-2.0</a>
+  </div>
+  <p class="quiet">© 2026 contorch</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
