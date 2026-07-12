@@ -30,6 +30,7 @@ box-shadow:0 30px 70px rgba(0,0,0,.45),0 0 60px rgba(255,107,53,.07)}
 .tl-dim{color:var(--ash)}.tl-comment{color:#6f6152}.tl-query{color:var(--gold)}
 .tl-agent{color:var(--flame)}.tl-cite{color:var(--ash)}
 .tl-them{color:var(--cream)}.tl-me{color:var(--gold)}
+.tl-recall{color:var(--flame)}.ann{color:#6f6152}
 """
 
 TERMINAL_HTML = """<div class="terminal">
@@ -37,17 +38,16 @@ TERMINAL_HTML = """<div class="terminal">
 <div class="term-body"><span class="tl-dim">● meeting — zoom · 10:02</span>
 <span class="tl-them">  Them   can we ship the retry fix before the freeze?</span>
 <span class="tl-me">  Me     done — it ships tonight, behind a flag.</span>
-<span class="tl-dim">✓ transcript → meeting-2026-07-11.md · indexed
-+ doc      auth-spec-v2.pdf → task auth-refactor
-+ lesson   "staging deploys need the flag service up first"</span>
+<span class="tl-dim">✓ indexed → meeting-2026-07-11.md
++ lesson  "staging needs the flag service first"</span>
 
 <span class="tl-comment"># a week later — new laptop, fresh session, any agent</span>
-<span class="tl-query">&gt; pick up the auth-refactor work</span>
-
-<span class="tl-agent">agent</span>   context: 2 meetings · 3 docs · 1 lesson
-        The retry fix shipped behind a flag — your words:
-        “done — it ships tonight, behind a flag.”
-        <span class="tl-cite">→ meeting-2026-07-11.md, 10:02</span></div>
+<span class="tl-query">&gt; deploy the retry fix to staging</span>
+<span class="tl-agent">agent  working…</span>
+<span class="tl-recall">  ◆ staging needs the flag service first <span class="ann">· nobody asked</span></span>
+  flag service up ✓ · deploying… ✓
+<span class="tl-recall">  ◆ “it ships tonight, behind a flag” <span class="ann">· your words, 10:02</span></span>
+  done — behind the flag, promise kept.</div>
 </div>"""
 
 
