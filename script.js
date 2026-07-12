@@ -11,21 +11,21 @@
     });
   }
 
+  // Lines with `h: true` are trusted static HTML (two-tone annotations).
   var LINES = [
     { t: "● meeting — zoom · 10:02", c: "tl-dim", d: 550 },
     { t: "  Them   can we ship the retry fix before the freeze?", c: "tl-them", d: 900 },
     { t: "  Me     done — it ships tonight, behind a flag.", c: "tl-me", d: 900 },
-    { t: "✓ transcript → meeting-2026-07-11.md · indexed", c: "tl-dim", d: 700 },
-    { t: "+ doc      auth-spec-v2.pdf → task auth-refactor", c: "tl-dim", d: 550 },
-    { t: "+ lesson   \"staging deploys need the flag service up first\"", c: "tl-dim", d: 750 },
+    { t: "✓ indexed → meeting-2026-07-11.md", c: "tl-dim", d: 600 },
+    { t: "+ lesson  \"staging needs the flag service first\"", c: "tl-dim", d: 800 },
     { t: " ", c: "", d: 800 },
     { t: "# a week later — new laptop, fresh session, any agent", c: "tl-comment", d: 700 },
-    { t: "> pick up the auth-refactor work", c: "tl-query", d: 300, type: true },
-    { t: " ", c: "", d: 650 },
-    { t: "agent   context: 2 meetings · 3 docs · 1 lesson", c: "tl-agent", d: 850 },
-    { t: "        The retry fix shipped behind a flag — your words:", c: "tl-answer", d: 420 },
-    { t: "        “done — it ships tonight, behind a flag.”", c: "tl-answer", d: 420 },
-    { t: "        → meeting-2026-07-11.md, 10:02", c: "tl-cite", d: 400 }
+    { t: "> deploy the retry fix to staging", c: "tl-query", d: 300, type: true },
+    { t: "agent  working…", c: "tl-agent", d: 750 },
+    { t: "  ◆ staging needs the flag service first <span class=\"ann\">· nobody asked</span>", c: "tl-recall", d: 950, h: true },
+    { t: "  flag service up ✓ · deploying… ✓", c: "tl-answer", d: 800 },
+    { t: "  ◆ “it ships tonight, behind a flag” <span class=\"ann\">· your words, 10:02</span>", c: "tl-recall", d: 950, h: true },
+    { t: "  done — behind the flag, promise kept.", c: "tl-answer", d: 400 }
   ];
 
   var body = document.getElementById("term-body");
@@ -34,10 +34,14 @@
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  function setLine(div, l) {
+    if (l.h) { div.innerHTML = l.t; } else { div.textContent = l.t; }
+  }
+
   function renderAll() {
     LINES.forEach(function (l) {
       var div = document.createElement("div");
-      div.textContent = l.t;
+      setLine(div, l);
       if (l.c) div.className = l.c;
       body.appendChild(div);
     });
@@ -69,7 +73,7 @@
         typeLine(div, l.t, function () { setTimeout(function () { play(idx + 1); }, l.d); });
       }, 250);
     } else {
-      div.textContent = l.t;
+      setLine(div, l);
       setTimeout(function () { play(idx + 1); }, l.d);
     }
   }

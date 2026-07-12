@@ -199,6 +199,8 @@ h1 {
 .tl-cite    { color: var(--ash); }
 .tl-them    { color: var(--cream); }
 .tl-me      { color: var(--gold); }
+.tl-recall  { color: var(--flame); }
+.ann        { color: #6f6152; }
 .cursor::after {
   content: "▌";
   color: var(--flame);
