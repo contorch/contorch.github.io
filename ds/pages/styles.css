@@ -182,6 +182,18 @@ h1 {
   font-size: 0.72rem;
   color: var(--ash);
 }
+.term-dots { margin-left: auto; display: flex; gap: 0.45rem; }
+.term-dots + span { margin-left: 0.9rem; }
+.term-dots button {
+  width: 0.55rem; height: 0.55rem;
+  padding: 0; border: 0; border-radius: 50%;
+  background: var(--line);
+  cursor: pointer;
+}
+.term-dots button.on { background: var(--flame); }
+.term-dots button:hover { background: var(--gold); }
+.term-body { transition: opacity 0.38s ease; }
+.term-body.fading { opacity: 0; }
 .term-body {
   padding: 1.1rem 1.25rem 1.4rem;
   font-family: var(--mono);
