@@ -1,0 +1,25 @@
+<!-- @dsCard group="Sections" name="Where context comes from" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet"><style>
+:root{--coal:#16110c;--soot:#211913;--pit:#0e0a07;--line:rgba(244,235,223,.10);
+--cream:#f4ebdf;--ash:#a5937f;--flame:#ff6b35;--gold:#ffb454;
+--display:"Bricolage Grotesque",system-ui,sans-serif;--body:"IBM Plex Sans",system-ui,sans-serif;
+--mono:"IBM Plex Mono",ui-monospace,monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--coal);color:var(--cream);font-family:var(--body);line-height:1.65;padding:2.5rem}
+a{color:var(--gold);text-decoration:none}
+code{font-family:var(--mono);color:var(--gold);font-size:.92em}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;max-width:1000px}
+.card{background:var(--soot);border:1px solid var(--line);border-radius:12px;padding:1.5rem 1.4rem}
+.k{font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--flame);margin-bottom:.7rem}
+.tag{display:inline-block;margin-left:.5rem;padding:.1rem .5rem;border:1px solid var(--line);border-radius:99px;color:var(--ash)}
+h3{font-family:var(--display);font-weight:600;font-size:1.25rem;margin-bottom:.6rem}
+.card p:not(.k){color:var(--ash);font-size:.93rem;margin-bottom:.8rem}
+.card pre{background:var(--pit);border:1px solid var(--line);border-radius:8px;padding:.75rem .95rem;overflow-x:auto}
+.card pre code{color:var(--ash);font-size:.78rem;line-height:1.7;display:block}
+.tl-them{color:var(--cream)}.tl-me{color:var(--gold)}</style></head><body><div class="grid">
+<div class="card"><p class="k">Conversations <span class="tag">automatic</span></p><h3>Your meetings, word for word.</h3><p>Take the call like always. Both sides — Me and Them — land as Markdown. No bot joins.</p><pre><code><span class="tl-them">Them</span>  can we ship it before the freeze?
+<span class="tl-me">Me</span>    done — it ships tonight.</code></pre></div>
+<div class="card"><p class="k">Docs &amp; links <span class="tag">one drop</span></p><h3>The spec lives with the task.</h3><p>Files, PRs, dashboards attach to the work they belong to.</p><pre><code>+ add_source auth-spec-v2.pdf → auth-refactor</code></pre></div>
+<div class="card"><p class="k">Decisions &amp; notes <span class="tag">one line</span></p><h3>Say it once, never again.</h3><p>Stop re-explaining project state to every fresh chat window.</p><pre><code>+ note "JWT rotation ships behind a flag"</code></pre></div>
+<div class="card"><p class="k">Lessons agents learn <span class="tag">automatic</span></p><h3>Hard-won knowledge stays won.</h3><p>The next agent — or the next laptop — doesn't rediscover it.</p><pre><code>+ lesson "staging needs the flag service up first"</code></pre></div>
+</div></body></html>

@@ -1,0 +1,38 @@
+<!-- @dsCard group="Components" name="Recall terminal" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet"><style>
+:root{--coal:#16110c;--soot:#211913;--pit:#0e0a07;--line:rgba(244,235,223,.10);
+--cream:#f4ebdf;--ash:#a5937f;--flame:#ff6b35;--gold:#ffb454;
+--display:"Bricolage Grotesque",system-ui,sans-serif;--body:"IBM Plex Sans",system-ui,sans-serif;
+--mono:"IBM Plex Mono",ui-monospace,monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--coal);color:var(--cream);font-family:var(--body);line-height:1.65;padding:2.5rem}
+a{color:var(--gold);text-decoration:none}
+code{font-family:var(--mono);color:var(--gold);font-size:.92em}
+
+.terminal{background:var(--pit);border:1px solid var(--line);border-radius:12px;max-width:620px;
+box-shadow:0 30px 70px rgba(0,0,0,.45),0 0 60px rgba(255,107,53,.07)}
+.term-bar{display:flex;align-items:center;gap:.45rem;padding:.7rem 1rem;border-bottom:1px solid var(--line)}
+.term-bar i{width:.65rem;height:.65rem;border-radius:50%;background:var(--line)}
+.term-bar i:first-child{background:rgba(255,107,53,.55)}
+.term-bar span{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--ash)}
+.term-body{padding:1.1rem 1.25rem 1.4rem;font-family:var(--mono);font-size:.82rem;line-height:1.75;white-space:pre-wrap}
+.tl-dim{color:var(--ash)}.tl-comment{color:#6f6152}.tl-query{color:var(--gold)}
+.tl-agent{color:var(--flame)}.tl-cite{color:var(--ash)}
+.tl-them{color:var(--cream)}.tl-me{color:var(--gold)}
+</style></head><body><div class="terminal">
+<div class="term-bar"><i></i><i></i><i></i><span>the context layer</span></div>
+<div class="term-body"><span class="tl-dim">● meeting — zoom · 10:02</span>
+<span class="tl-them">  Them   can we ship the retry fix before the freeze?</span>
+<span class="tl-me">  Me     done — it ships tonight, behind a flag.</span>
+<span class="tl-dim">✓ transcript → meeting-2026-07-11.md · indexed
++ doc      auth-spec-v2.pdf → task auth-refactor
++ lesson   "staging deploys need the flag service up first"</span>
+
+<span class="tl-comment"># a week later — new laptop, fresh session, any agent</span>
+<span class="tl-query">&gt; pick up the auth-refactor work</span>
+
+<span class="tl-agent">agent</span>   context: 2 meetings · 3 docs · 1 lesson
+        The retry fix shipped behind a flag — your words:
+        “done — it ships tonight, behind a flag.”
+        <span class="tl-cite">→ meeting-2026-07-11.md, 10:02</span></div>
+</div></body></html>
