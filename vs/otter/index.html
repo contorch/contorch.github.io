@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI meeting notes without a bot — contorch vs Otter</title>
+<meta name="description" content="Otter sends a bot to your meetings and stores transcripts in its cloud. contorch captures locally on your Mac — no bot, Markdown on your disk, built to feed coding agents. An honest comparison.">
+<link rel="canonical" href="https://contorch.com/vs/otter/">
+<meta property="og:title" content="AI meeting notes without a bot — contorch vs Otter">
+<meta property="og:description" content="Otter sends a bot to your meetings and stores transcripts in its cloud. contorch captures locally on your Mac — no bot, Markdown on your disk, built to feed coding agents. An honest comparison.">
+<meta property="og:url" content="https://contorch.com/vs/otter/">
+<link rel="icon" type="image/png" href="/favicon-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+.compare-wrap{max-width:880px;margin:0 auto;padding:0 1.5rem 4rem}
+.compare-hero{padding:3.5rem 0 2rem}
+.compare-hero h1{font-size:clamp(2rem,4.5vw,3rem)}
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:2.25rem 0}
+.verdict .card h3{font-family:var(--display);font-weight:600;font-size:1.05rem;margin-bottom:.5rem}
+.verdict .card p{font-size:.93rem}
+table.cmp{width:100%;border-collapse:collapse;margin:2.25rem 0;font-size:.95rem}
+table.cmp th,table.cmp td{text-align:left;padding:.7rem .9rem;border-bottom:1px solid var(--line);vertical-align:top}
+table.cmp th{font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash)}
+table.cmp td:first-child{color:var(--ash);width:28%}
+table.cmp td strong{color:var(--cream);font-weight:500}
+.cmp-scroll{overflow-x:auto}
+.prose{color:var(--ash);max-width:44rem}
+.prose p{margin-bottom:1rem}
+.prose strong{color:var(--cream);font-weight:500}
+.prose h2{margin:2.5rem 0 .75rem}
+.cta-band{margin:3rem 0 0;padding:1.75rem;border:1px solid var(--line);border-radius:12px;background:var(--soot)}
+.cta-band p{color:var(--ash);margin-bottom:1rem}
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/">
+    <img src="/logo-512.png" alt="" width="26" height="37">
+    <span>contorch</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#how">How it runs</a>
+    <a href="/#install">Install</a>
+    <a href="https://github.com/contorch" rel="noopener">GitHub</a>
+  </div>
+</nav>
+<div class="compare-wrap">
+  <header class="compare-hero">
+    <p class="eyebrow">an honest comparison</p>
+    <h1>No bot in the room. No cloud archive. Still every word.</h1>
+    <p class="sub">Otter is a full transcription service: a bot (OtterPilot) joins your meetings, and transcripts live in Otter's cloud with team features on top. contorch takes the opposite architecture: nothing joins the call — your Mac transcribes what you already hear, into files you own.</p>
+  </header>
+
+  <div class="verdict">
+    <div class="card"><h3>Use Otter if…</h3><p>you want a mature transcription service with team workspaces, shared archives, mobile apps, and integrations — and you're comfortable with a bot in the room and transcripts in a vendor's cloud.</p></div>
+    <div class="card"><h3>Use contorch if…</h3><p>you'd rather nothing join your calls, want transcripts as plain Markdown on your own disk, and want that context to feed your coding agents over MCP rather than sit in a web archive.</p></div>
+  </div>
+
+  <div class="cmp-scroll">
+  <table class="cmp">
+    <thead><tr><th></th><th>Otter</th><th>contorch</th></tr></thead>
+    <tbody>
+<tr><td>How it captures</td><td>A bot (OtterPilot) joins the meeting as a participant</td><td><strong>Nothing joins.</strong> Your Mac transcribes its own audio — the same sound you hear</td></tr>
+<tr><td>Visible to others</td><td>Bot appears in the participant list</td><td>Nothing visible — you remain responsible for local recording-consent rules (see our docs)</td></tr>
+<tr><td>Where transcripts live</td><td>Otter's cloud</td><td><strong>Your disk</strong> — <code>~/transcripts/*.md</code>, grep-able, yours to delete</td></tr>
+<tr><td>Built for</td><td>Humans reading and sharing notes</td><td><strong>Agents using context</strong> — plus you, since it's just Markdown</td></tr>
+<tr><td>Speaker attribution</td><td>Named speakers (with training)</td><td>Me / Them, exact by construction</td></tr>
+<tr><td>Open source</td><td>No</td><td><strong>Apache-2.0</strong></td></tr>
+<tr><td>Price</td><td>Free tier + subscription</td><td>Free</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="prose">
+<h2><span class="hash">##</span> Architecture is the feature</h2>
+<p>A meeting bot is a third participant: everyone sees it, a vendor's cloud
+receives the room's words, and your transcript archive lives behind someone
+else's login. Sometimes that's exactly right — teams that live in a shared
+archive get real value from it.</p>
+<p>contorch's answer is architectural: capture happens on your machine, output
+is a folder of Markdown, and the consumer isn't a web app — it's whatever agent
+you point at it. Audio goes to one place only (Gemini, transiently, for
+transcription — then it's deleted), and we say so plainly rather than
+whispering it. If your meetings are going to become memory, you should own
+the memory.</p>
+  </div>
+
+  <div class="cta-band">
+  <p>Free, Apache-2.0, local-first. One command installs the whole layer.</p>
+  <div class="install-cta">
+    <code><span class="prompt">$</span> curl -fsSL contorch.com/install | bash</code>
+  </div>
+</div>
+</div>
+<footer>
+  <img src="/logo-512.png" alt="contorch" width="20" height="28">
+  <p>contorch — context, carried forward.</p>
+  <div class="foot-links">
+    <a href="/">home</a>
+    <a href="/vs/granola/">vs Granola</a> · <a href="/vs/mem0/">vs Mem0</a>
+    <a href="https://github.com/contorch" rel="noopener">GitHub</a>
+  </div>
+  <p class="quiet">© 2026 contorch · comparisons reflect public docs at time of writing — tell us if something's outdated.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open-source Granola alternative — contorch vs Granola</title>
+<meta name="description" content="Granola turns meetings into polished notes for humans. contorch turns them into memory your coding agents use — open source, local Markdown, no bot. An honest comparison.">
+<link rel="canonical" href="https://contorch.com/vs/granola/">
+<meta property="og:title" content="Open-source Granola alternative — contorch vs Granola">
+<meta property="og:description" content="Granola turns meetings into polished notes for humans. contorch turns them into memory your coding agents use — open source, local Markdown, no bot. An honest comparison.">
+<meta property="og:url" content="https://contorch.com/vs/granola/">
+<link rel="icon" type="image/png" href="/favicon-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+.compare-wrap{max-width:880px;margin:0 auto;padding:0 1.5rem 4rem}
+.compare-hero{padding:3.5rem 0 2rem}
+.compare-hero h1{font-size:clamp(2rem,4.5vw,3rem)}
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:2.25rem 0}
+.verdict .card h3{font-family:var(--display);font-weight:600;font-size:1.05rem;margin-bottom:.5rem}
+.verdict .card p{font-size:.93rem}
+table.cmp{width:100%;border-collapse:collapse;margin:2.25rem 0;font-size:.95rem}
+table.cmp th,table.cmp td{text-align:left;padding:.7rem .9rem;border-bottom:1px solid var(--line);vertical-align:top}
+table.cmp th{font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash)}
+table.cmp td:first-child{color:var(--ash);width:28%}
+table.cmp td strong{color:var(--cream);font-weight:500}
+.cmp-scroll{overflow-x:auto}
+.prose{color:var(--ash);max-width:44rem}
+.prose p{margin-bottom:1rem}
+.prose strong{color:var(--cream);font-weight:500}
+.prose h2{margin:2.5rem 0 .75rem}
+.cta-band{margin:3rem 0 0;padding:1.75rem;border:1px solid var(--line);border-radius:12px;background:var(--soot)}
+.cta-band p{color:var(--ash);margin-bottom:1rem}
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/">
+    <img src="/logo-512.png" alt="" width="26" height="37">
+    <span>contorch</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#how">How it runs</a>
+    <a href="/#install">Install</a>
+    <a href="https://github.com/contorch" rel="noopener">GitHub</a>
+  </div>
+</nav>
+<div class="compare-wrap">
+  <header class="compare-hero">
+    <p class="eyebrow">an honest comparison</p>
+    <h1>Granola turns meetings into notes. contorch turns them into memory.</h1>
+    <p class="sub">Both capture your calls without a bot, straight from your Mac's audio, and label speakers Me and Them. What happens next is where they part ways: notes are for you to read — memory is for your agents to use.</p>
+  </header>
+
+  <div class="verdict">
+    <div class="card"><h3>Use Granola if…</h3><p>you want beautiful, human-readable summaries with templates, follow-up emails, sharing, and team features. Granola is excellent at its job, and its job is notes.</p></div>
+    <div class="card"><h3>Use contorch if…</h3><p>you live in Claude Code (or any MCP agent) and want your meetings to become memory your agents actually use — verbatim local Markdown, searchable by meaning, recalled unprompted while agents work.</p></div>
+  </div>
+
+  <div class="cmp-scroll">
+  <table class="cmp">
+    <thead><tr><th></th><th>Granola</th><th>contorch</th></tr></thead>
+    <tbody>
+<tr><td>Bot joins your call</td><td>No — captures locally</td><td>No — captures locally</td></tr>
+<tr><td>Speaker labels</td><td>Me / Them by default</td><td>Me / Them</td></tr>
+<tr><td>The output</td><td>Polished notes and summaries, written for humans</td><td><strong>Verbatim transcripts + a memory layer for agents</strong> — plain Markdown on your disk</td></tr>
+<tr><td>Transcription</td><td>Cloud ASR (Deepgram / AssemblyAI per Granola's security docs); audio not stored</td><td>Local capture; transcription via Gemini (audio sent transiently, then deleted) — disclosed plainly</td></tr>
+<tr><td>Where your data lives</td><td>Granola's cloud</td><td><strong>Your disk</strong> — <code>~/transcripts</code> Markdown + a local index</td></tr>
+<tr><td>Your agents can use it</td><td>No agent interface</td><td><strong>Any MCP agent</strong> — Claude Code, Codex, anything</td></tr>
+<tr><td>Beyond meetings</td><td>Meetings only</td><td>Notes, docs, tasks, and lessons agents save — one memory layer</td></tr>
+<tr><td>Open source</td><td>No</td><td><strong>Apache-2.0</strong> — read every line that can hear you</td></tr>
+<tr><td>Price</td><td>Subscription</td><td>Free</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="prose">
+<h2><span class="hash">##</span> The real difference</h2>
+<p>Granola's pipeline ends when a human reads the notes. contorch's ends when an
+agent <em>acts</em> on the memory — days later, unprompted, possibly on another
+machine. When you told a client "it ships tonight, behind a flag," Granola gives
+you a tidy summary containing that promise. contorch makes sure the agent
+deploying that fix next week <strong>already knows</strong>, quotes your words
+back, and ships it behind the flag.</p>
+<p>If your work doesn't involve coding agents, Granola is probably the better
+product for you today — genuinely. If it does, notes that only humans can read
+are a dead end for the most useful thing your meetings produce: context.</p>
+  </div>
+
+  <div class="cta-band">
+  <p>Free, Apache-2.0, local-first. One command installs the whole layer.</p>
+  <div class="install-cta">
+    <code><span class="prompt">$</span> curl -fsSL contorch.com/install | bash</code>
+  </div>
+</div>
+</div>
+<footer>
+  <img src="/logo-512.png" alt="contorch" width="20" height="28">
+  <p>contorch — context, carried forward.</p>
+  <div class="foot-links">
+    <a href="/">home</a>
+    <a href="/vs/mem0/">vs Mem0</a> · <a href="/vs/otter/">vs Otter</a>
+    <a href="https://github.com/contorch" rel="noopener">GitHub</a>
+  </div>
+  <p class="quiet">© 2026 contorch · comparisons reflect public docs at time of writing — tell us if something's outdated.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>contorch vs Mem0 — memory for using agents vs building them</title>
+<meta name="description" content="Mem0 is a memory SDK for developers building AI apps. contorch is a memory layer for people who use coding agents — zero integration, fed by your real work. An honest comparison.">
+<link rel="canonical" href="https://contorch.com/vs/mem0/">
+<meta property="og:title" content="contorch vs Mem0 — memory for using agents vs building them">
+<meta property="og:description" content="Mem0 is a memory SDK for developers building AI apps. contorch is a memory layer for people who use coding agents — zero integration, fed by your real work. An honest comparison.">
+<meta property="og:url" content="https://contorch.com/vs/mem0/">
+<link rel="icon" type="image/png" href="/favicon-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+.compare-wrap{max-width:880px;margin:0 auto;padding:0 1.5rem 4rem}
+.compare-hero{padding:3.5rem 0 2rem}
+.compare-hero h1{font-size:clamp(2rem,4.5vw,3rem)}
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:2.25rem 0}
+.verdict .card h3{font-family:var(--display);font-weight:600;font-size:1.05rem;margin-bottom:.5rem}
+.verdict .card p{font-size:.93rem}
+table.cmp{width:100%;border-collapse:collapse;margin:2.25rem 0;font-size:.95rem}
+table.cmp th,table.cmp td{text-align:left;padding:.7rem .9rem;border-bottom:1px solid var(--line);vertical-align:top}
+table.cmp th{font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash)}
+table.cmp td:first-child{color:var(--ash);width:28%}
+table.cmp td strong{color:var(--cream);font-weight:500}
+.cmp-scroll{overflow-x:auto}
+.prose{color:var(--ash);max-width:44rem}
+.prose p{margin-bottom:1rem}
+.prose strong{color:var(--cream);font-weight:500}
+.prose h2{margin:2.5rem 0 .75rem}
+.cta-band{margin:3rem 0 0;padding:1.75rem;border:1px solid var(--line);border-radius:12px;background:var(--soot)}
+.cta-band p{color:var(--ash);margin-bottom:1rem}
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/">
+    <img src="/logo-512.png" alt="" width="26" height="37">
+    <span>contorch</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#how">How it runs</a>
+    <a href="/#install">Install</a>
+    <a href="https://github.com/contorch" rel="noopener">GitHub</a>
+  </div>
+</nav>
+<div class="compare-wrap">
+  <header class="compare-hero">
+    <p class="eyebrow">an honest comparison</p>
+    <h1>Mem0 is memory for agents you build. contorch is memory for agents you use.</h1>
+    <p class="sub">Both are open-source memory layers, and both deserve their stars. They just answer different questions: Mem0 asks 'how do I give my app a memory?' — contorch asks 'how do my agents remember my work?'</p>
+  </header>
+
+  <div class="verdict">
+    <div class="card"><h3>Use Mem0 if…</h3><p>you're a developer building an AI application and need a memory API — add/search calls, extraction from chat history, a hosted platform to scale on. Mem0 is the category leader at exactly that.</p></div>
+    <div class="card"><h3>Use contorch if…</h3><p>you use Claude Code, Codex, or any MCP agent and want them to remember your project — meetings, decisions, docs, lessons — with zero integration code. Install a daemon; keep working.</p></div>
+  </div>
+
+  <div class="cmp-scroll">
+  <table class="cmp">
+    <thead><tr><th></th><th>Mem0</th><th>contorch</th></tr></thead>
+    <tbody>
+<tr><td>You are</td><td>A developer building an agent app</td><td>Someone who <strong>uses</strong> coding agents</td></tr>
+<tr><td>Integration</td><td>SDK calls in your application code</td><td><strong>None</strong> — brew install, agents connect over MCP</td></tr>
+<tr><td>Memory comes from</td><td>What your app explicitly stores — typically extracted from chat sessions</td><td>Your actual work: <strong>meetings (spoken words)</strong>, docs, notes, lessons agents save</td></tr>
+<tr><td>Can it hear a meeting?</td><td>No — its input surface is the API</td><td><strong>Yes — the only memory layer with ears.</strong> Botless macOS capture, Me/Them labeled</td></tr>
+<tr><td>Runs as</td><td>Library + hosted platform</td><td>Local daemon + MCP server; files on your disk</td></tr>
+<tr><td>Open source</td><td>Apache-2.0</td><td>Apache-2.0</td></tr>
+<tr><td>Works together?</td><td>An app built on Mem0 can still read contorch's context over MCP</td><td>—</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="prose">
+<h2><span class="hash">##</span> Different questions, different layers</h2>
+<p>The agent-memory category was built by and for <strong>agent builders</strong>:
+you write code against an SDK, and the memory is whatever your application
+chooses to store — which in practice means text that already passed through a
+chat window. That's the right shape for products.</p>
+<p>contorch starts from the other end: you already use excellent agents. What
+they lack is your context — and most of your context never gets typed. It's
+said in meetings, decided in calls, learned painfully in a deploy at 4:50pm on
+a Friday. contorch captures that layer automatically and serves it to whatever
+agent asks. No code, no integration, no app to build.</p>
+  </div>
+
+  <div class="cta-band">
+  <p>Free, Apache-2.0, local-first. One command installs the whole layer.</p>
+  <div class="install-cta">
+    <code><span class="prompt">$</span> curl -fsSL contorch.com/install | bash</code>
+  </div>
+</div>
+</div>
+<footer>
+  <img src="/logo-512.png" alt="contorch" width="20" height="28">
+  <p>contorch — context, carried forward.</p>
+  <div class="foot-links">
+    <a href="/">home</a>
+    <a href="/vs/granola/">vs Granola</a> · <a href="/vs/otter/">vs Otter</a>
+    <a href="https://github.com/contorch" rel="noopener">GitHub</a>
+  </div>
+  <p class="quiet">© 2026 contorch · comparisons reflect public docs at time of writing — tell us if something's outdated.</p>
+</footer>
+</body>
+</html>
