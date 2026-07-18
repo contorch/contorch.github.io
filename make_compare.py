@@ -60,6 +60,14 @@ def page(slug, title, desc, h1, sub, verdict_them, verdict_us, them_name, rows, 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 {FONTS}
 <link rel="stylesheet" href="/styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X0YNYJRMWB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-X0YNYJRMWB');
+</script>
 <style>{EXTRA_CSS}</style>
 </head>
 <body>
