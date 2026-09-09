@@ -1,56 +1,68 @@
-// contorch.com — rotating hero demo + copy button. No dependencies.
-// Three scenarios, each the same loop: capture → task → unprompted recall.
+// contorch.com — rotating hero demo + copy buttons. No dependencies.
+// Three scenarios, each the same loop: capture → task → recall with a citation.
 
 (function () {
-  var copyBtn = document.getElementById("copy-btn");
-  if (copyBtn) {
-    copyBtn.addEventListener("click", function () {
-      navigator.clipboard.writeText("curl -fsSL contorch.com/install | bash").then(function () {
-        copyBtn.textContent = "Copied";
-        setTimeout(function () { copyBtn.textContent = "Copy"; }, 1800);
+  // Copy buttons read the command from the DOM (data-cmd on the <code>), so the
+  // displayed and copied commands can never drift apart.
+  function commandFor(btn) {
+    var sel = btn.getAttribute("data-copy");
+    var code = sel === "prev"
+      ? btn.previousElementSibling
+      : sel ? document.querySelector(sel)
+      : btn.parentElement.querySelector("code[data-cmd]");
+    return code ? code.getAttribute("data-cmd") : null;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("#copy-btn, button.copy"), function (btn) {
+    btn.addEventListener("click", function () {
+      var cmd = commandFor(btn);
+      if (!cmd) return;
+      navigator.clipboard.writeText(cmd).then(function () {
+        var label = btn.textContent;
+        btn.textContent = btn.id === "copy-btn" ? "Copied — now permissions ↓" : "Copied";
+        setTimeout(function () { btn.textContent = label; }, 2200);
       });
     });
-  }
+  });
 
   // Lines with `h: true` are trusted static HTML (two-tone annotations).
+  // Speakers are only ever Me / Them — that is what capture actually labels.
   var SCENARIOS = [
     [
       { t: "● meeting — zoom · 10:02", c: "tl-dim", d: 550 },
       { t: "  Them   can we ship the retry fix before the freeze?", c: "tl-them", d: 900 },
       { t: "  Me     done — it ships tonight, behind a flag.", c: "tl-me", d: 900 },
-      { t: "✓ indexed → meeting-2026-07-11.md", c: "tl-dim", d: 600 },
+      { t: "✓ saved → ~/transcripts/meeting-2026-07-11.md", c: "tl-dim", d: 600 },
       { t: "+ lesson  \"staging needs the flag service first\"", c: "tl-dim", d: 800 },
       { t: " ", c: "", d: 800 },
-      { t: "# a week later — new laptop, fresh session, any agent", c: "tl-comment", d: 700 },
+      { t: "# a week later — a fresh session on this Mac", c: "tl-comment", d: 700 },
       { t: "> deploy the retry fix to staging", c: "tl-query", d: 300, type: true },
       { t: "agent  working…", c: "tl-agent", d: 750 },
-      { t: "  ◆ staging needs the flag service first <span class=\"ann\">· nobody asked</span>", c: "tl-recall", d: 950, h: true },
+      { t: "  ◆ staging needs the flag service first <span class=\"ann\">· saved lesson</span>", c: "tl-recall", d: 950, h: true },
       { t: "  flag service up ✓ · deploying… ✓", c: "tl-answer", d: 800 },
-      { t: "  ◆ “it ships tonight, behind a flag” <span class=\"ann\">· your words, 10:02</span>", c: "tl-recall", d: 950, h: true },
+      { t: "  ◆ “it ships tonight, behind a flag” <span class=\"ann\">· meeting-2026-07-11.md, 10:02</span>", c: "tl-recall", d: 950, h: true },
       { t: "  done — behind the flag, promise kept.", c: "tl-answer", d: 400 }
     ],
     [
       { t: "● retro — after the outage · May 2", c: "tl-dim", d: 550 },
       { t: "  Me     new rule: we don't deploy on Fridays.", c: "tl-me", d: 950 },
-      { t: "✓ indexed → retro-2026-05-02.md", c: "tl-dim", d: 800 },
+      { t: "✓ saved → ~/transcripts/meeting-2026-05-02.md", c: "tl-dim", d: 800 },
       { t: " ", c: "", d: 800 },
       { t: "# five weeks later — Friday, 4:50pm", c: "tl-comment", d: 700 },
       { t: "> ship the checkout fix", c: "tl-query", d: 300, type: true },
       { t: "agent  working…", c: "tl-agent", d: 750 },
-      { t: "  ◆ “we don't deploy on Fridays” <span class=\"ann\">· your rule, May 2</span>", c: "tl-recall", d: 1000, h: true },
-      { t: "  it's Friday — queued for Monday 9am instead.", c: "tl-answer", d: 700 },
-      { t: "  say “override” to ship now.", c: "tl-answer", d: 400 }
+      { t: "  ◆ “we don't deploy on Fridays” <span class=\"ann\">· meeting-2026-05-02.md</span>", c: "tl-recall", d: 1000, h: true },
+      { t: "  it's Friday. Your retro rule says wait — ship anyway?", c: "tl-answer", d: 400 }
     ],
     [
       { t: "● standup · Tuesday", c: "tl-dim", d: 550 },
-      { t: "  Priya  ranking is mine now — route changes through me.", c: "tl-them", d: 950 },
-      { t: "✓ indexed → standup-2026-07-07.md", c: "tl-dim", d: 800 },
+      { t: "  Them   ranking is mine now — route changes through me.", c: "tl-them", d: 950 },
+      { t: "✓ saved → ~/transcripts/meeting-2026-07-07.md", c: "tl-dim", d: 800 },
       { t: " ", c: "", d: 800 },
       { t: "# the following week", c: "tl-comment", d: 700 },
       { t: "> open a PR for the ranking tweak", c: "tl-query", d: 300, type: true },
       { t: "agent  working…", c: "tl-agent", d: 750 },
-      { t: "  ◆ Priya owns the ranking model <span class=\"ann\">· standup, Tue</span>", c: "tl-recall", d: 1000, h: true },
-      { t: "  PR opened — review requested from Priya.", c: "tl-answer", d: 400 }
+      { t: "  ◆ ranking changes now route through its owner <span class=\"ann\">· meeting-2026-07-07.md</span>", c: "tl-recall", d: 1000, h: true },
+      { t: "  PR drafted — noted the owner change in the description.", c: "tl-answer", d: 400 }
     ]
   ];
   var REST_MS = 4000;   // pause on a finished scenario before rotating

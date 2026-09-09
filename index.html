@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>contorch — the open-source memory layer for coding agents</title>
-<meta name="description" content="contorch is the open-source memory layer for coding agents — the only one with ears. Meetings transcribe themselves (no bot), notes and lessons accumulate, and any MCP agent picks up where you left off.">
-<meta property="og:title" content="contorch — give your agents a memory">
-<meta property="og:description" content="A local, persistent context layer for coding agents. Captured meetings, tasks, sources, repo knowledge — searchable from Claude Code, Codex, anything that speaks MCP.">
-<meta property="og:url" content="https://contorch.com">
+<title>contorch — Open-Source Memory for Coding Agents</title>
+<meta name="description" content="Give Claude Code and other coding agents memory of meetings, notes, and lessons. Open-source for macOS. Local storage; Gemini cloud transcription. No meeting bot.">
+<link rel="canonical" href="https://contorch.com/">
+<meta property="og:title" content="contorch — open-source memory for coding agents">
+<meta property="og:description" content="Give Claude Code and other coding agents memory of meetings, notes, and lessons. Open-source for macOS. Transcripts and index stay local; audio is transcribed by Gemini. No meeting bot.">
+<meta property="og:url" content="https://contorch.com/">
 <link rel="icon" type="image/png" href="favicon-64.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,8 +31,9 @@
     <span>contorch</span>
   </a>
   <div class="nav-links">
-    <a href="#how">How it runs</a>
     <a href="#install">Install</a>
+    <a href="#claude-code">Claude Code</a>
+    <a href="#how">How it works</a>
     <a href="https://github.com/contorch" rel="noopener">GitHub</a>
   </div>
 </nav>
@@ -39,35 +41,41 @@
 <header class="hero">
   <div class="ember" aria-hidden="true"></div>
   <div class="hero-copy">
-    <p class="eyebrow">context&nbsp;+&nbsp;torch</p>
-    <h1>Give your agents a&nbsp;memory.</h1>
+    <p class="eyebrow">open-source memory for coding agents</p>
+    <h1>Give your coding agents a&nbsp;memory.</h1>
     <p class="sub">contorch is the open-source memory layer for coding agents — the only
-    one with ears. Meetings transcribe themselves (no bot in the call), notes and
-    lessons accumulate, and any agent that speaks MCP (Claude&nbsp;Code, Codex,
-    anything) picks up where you left off — in any session, on any day.</p>
+    one with ears. Capture meetings without a bot, keep notes and lessons, and let
+    connected agents (Claude&nbsp;Code, Codex, anything that speaks MCP) retrieve that
+    context in later sessions.</p>
+    <p class="platform">macOS 13+ · Me + Them capture on macOS 15+ · Homebrew · prebuilt, Developer&nbsp;ID-signed</p>
     <div class="install-cta">
-      <code id="brew-cmd"><span class="prompt">$</span> curl -fsSL contorch.com/install | bash</code>
-      <button id="copy-btn" type="button" aria-label="Copy install command">Copy</button>
+      <code id="brew-cmd" data-cmd="brew install contorch/tap/meeting-capture"><span class="prompt">$</span> brew install contorch/tap/meeting-capture</code>
+      <button id="copy-btn" type="button" data-copy="#brew-cmd" aria-label="Copy install command">Copy</button>
     </div>
-    <p class="cta-note">Free · Apache-2.0 · local-first · <a href="#how">see how it runs ↓</a></p>
+    <p class="cta-next"><strong>Installing is step 1.</strong> Next: audio permissions → Gemini key → verify a transcript → connect your agent.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#install">Install on macOS</a>
+      <a class="btn ghost" href="#how">How it works ↓</a>
+    </div>
+    <p class="cta-note">Apache-2.0 · transcripts and index stay on your Mac · Gemini cloud transcription; API charges may apply</p>
   </div>
 
-  <div class="terminal" id="terminal" aria-label="Demo: context accumulating from meetings, tasks, and sources, then recalled by an agent in a later session">
-    <div class="term-bar"><i></i><i></i><i></i><span>the context layer</span></div>
+  <div class="terminal" id="terminal" aria-label="Demo: a decision made on a call, saved as a transcript, then recalled by an agent in a later session">
+    <div class="term-bar"><i></i><i></i><i></i><span>meeting → transcript → recall</span></div>
     <div class="term-body" id="term-body">
       <noscript>
         <pre class="term-static">● meeting — zoom · 10:02
   Them   can we ship the retry fix before the freeze?
   Me     done — it ships tonight, behind a flag.
-✓ indexed → meeting-2026-07-11.md
+✓ saved → ~/transcripts/meeting-2026-07-11.md
 + lesson  "staging needs the flag service first"
 
-# a week later — new laptop, fresh session, any agent
+# a week later — a fresh session on this Mac
 > deploy the retry fix to staging
 agent  working…
-  ◆ staging needs the flag service first · nobody asked
+  ◆ staging needs the flag service first · saved lesson
   flag service up ✓ · deploying… ✓
-  ◆ "it ships tonight, behind a flag" · your words, 10:02
+  ◆ "it ships tonight, behind a flag" · meeting-2026-07-11.md, 10:02
   done — behind the flag, promise kept.</pre>
       </noscript>
     </div>
@@ -75,114 +83,244 @@ agent  working…
 </header>
 
 <main>
+
+<section id="install" class="install">
+  <h2><span class="hash">##</span> Get your first meeting into memory</h2>
+  <p class="section-sub">Install meeting capture, enable audio access, connect transcription — then
+  check that your agent can retrieve what was said. Five steps, in order; each depends on the last.</p>
+
+  <ol class="checklist">
+    <li class="step">
+      <p class="step-k">Step 1 · Install meeting capture</p>
+      <div class="cmd">
+        <pre><code data-cmd="brew install contorch/tap/meeting-capture"><span class="prompt">$</span> brew install contorch/tap/meeting-capture</code></pre>
+        <button type="button" class="copy" aria-label="Copy command">Copy</button>
+      </div>
+      <p>A prebuilt, Developer ID-signed universal binary — no Xcode build. Don't have Homebrew?
+      <a href="https://brew.sh/" rel="noopener">Install it first</a>, finish its “Next steps,”
+      then come back. On first run <code>meeting-capture</code> sets up its own Python
+      environment; that takes a minute.</p>
+    </li>
+
+    <li class="step">
+      <p class="step-k">Step 2 · Allow system-audio capture</p>
+      <p>Open <strong>System Settings → Privacy &amp; Security → Screen &amp; System Audio
+      Recording</strong>, click <strong>+</strong>, and add the installed <strong>sysaudio</strong>
+      binary. Enable it under <strong>System Audio Recording Only</strong> too. Grant this to
+      <em>sysaudio</em>, not to Terminal.</p>
+      <div class="cmd">
+        <pre><code data-cmd='echo "$(brew --prefix)/opt/meeting-capture/bin/sysaudio"'><span class="prompt">$</span> echo "$(brew --prefix)/opt/meeting-capture/bin/sysaudio"</code></pre>
+        <button type="button" class="copy" aria-label="Copy command">Copy</button>
+      </div>
+      <p>Copy the printed path. In the Settings file picker press <kbd>⌘</kbd><kbd>⇧</kbd><kbd>G</kbd>,
+      paste it, and select the file. (Apple Silicon: <code>/opt/homebrew/opt/meeting-capture/bin/sysaudio</code>.)</p>
+      <p><strong>On macOS 15+:</strong> your first recording pops a <strong>Microphone</strong>
+      prompt for <em>sysaudio</em>. Click <strong>Allow</strong> to capture your own voice as
+      <code>Me</code>. Without it your side is missing. macOS 13–14 capture system audio only.</p>
+      <p class="note">Grants survive upgrades — the binary carries a stable Developer ID signature.
+      Capture stopped after a macOS update? Re-check this pane and re-add sysaudio if the grant disappeared.</p>
+    </li>
+
+    <li class="step">
+      <p class="step-k">Step 3 · Add your Gemini API key <span class="tag req">required for transcription</span></p>
+      <p>Create a key in <a href="https://aistudio.google.com/apikey" rel="noopener">Google AI Studio</a>.
+      Meeting audio is sent to Gemini to produce the transcript; free-tier availability and paid
+      usage depend on your Google project (<a href="https://ai.google.dev/gemini-api/terms" rel="noopener">Gemini API terms</a>).
+      Write the key to a file — a background daemon won't see a variable you exported in one shell.</p>
+      <div class="cmd">
+        <pre><code data-cmd="mkdir -p ~/.config/google &amp;&amp; touch ~/.config/google/key &amp;&amp; chmod 600 ~/.config/google/key &amp;&amp; nano ~/.config/google/key"><span class="prompt">$</span> mkdir -p ~/.config/google &amp;&amp; touch ~/.config/google/key
+<span class="prompt">$</span> chmod 600 ~/.config/google/key
+<span class="prompt">$</span> nano ~/.config/google/key</code></pre>
+        <button type="button" class="copy" aria-label="Copy commands">Copy</button>
+      </div>
+      <p>Paste only the key. Save with <kbd>⌃O</kbd>, <kbd>Enter</kbd>, then exit with <kbd>⌃X</kbd>.
+      <code>GOOGLE_API_KEY</code> / <code>GEMINI_API_KEY</code> in the environment also work.</p>
+    </li>
+
+    <li class="step">
+      <p class="step-k">Step 4 · Start it and verify a real recording</p>
+      <div class="cmd">
+        <pre><code data-cmd="meeting-capture install &amp;&amp; meeting-capture doctor"><span class="prompt">$</span> meeting-capture install   <span class="ann"># auto-start at login (launchd)</span>
+<span class="prompt">$</span> meeting-capture doctor    <span class="ann"># binaries, permissions, key, daemon</span></code></pre>
+        <button type="button" class="copy" aria-label="Copy commands">Copy</button>
+      </div>
+      <p>Fix anything <code>doctor</code> reports. Then join a short test call, allow the
+      microphone prompt, have both sides say something, and hang up. Check:</p>
+      <div class="cmd">
+        <pre><code data-cmd="meeting-capture last &amp;&amp; open ~/transcripts"><span class="prompt">$</span> meeting-capture last
+<span class="prompt">$</span> open ~/transcripts</code></pre>
+        <button type="button" class="copy" aria-label="Copy commands">Copy</button>
+      </div>
+      <p><strong class="ok">Success:</strong> a new Markdown transcript contains the test conversation.
+      On macOS 15+, both <code>Me</code> and <code>Them</code> lines appear.</p>
+    </li>
+
+    <li class="step">
+      <p class="step-k">Step 5 · Connect agent memory</p>
+      <p>Capture writes transcripts; <strong>context-orchestrator</strong> indexes them and serves
+      them to your agent over MCP, along with notes, sources, and saved lessons. It's a separate
+      install:</p>
+      <div class="cmd">
+        <pre><code data-cmd="git clone https://github.com/contorch/context-orchestrator.git &amp;&amp; cd context-orchestrator &amp;&amp; ./setup.sh"><span class="prompt">$</span> git clone https://github.com/contorch/context-orchestrator.git
+<span class="prompt">$</span> cd context-orchestrator &amp;&amp; ./setup.sh</code></pre>
+        <button type="button" class="copy" aria-label="Copy commands">Copy</button>
+      </div>
+      <p>This registers the MCP server with Claude Code and installs the transcript watcher.
+      <strong>Restart Claude Code</strong>, then ask:</p>
+      <blockquote class="prompt-try">Search contorch for my latest test meeting. What did we say? Cite the transcript.</blockquote>
+      <p><strong class="ok">That answer, with a real citation, is the finish line.</strong> A copied
+      command isn't a successful install — a retrieved transcript is.</p>
+    </li>
+  </ol>
+
+  <details class="advanced">
+    <summary>Advanced: install the full suite from source</summary>
+    <div class="cmd">
+      <pre><code data-cmd="curl -fsSL https://contorch.com/install | bash"><span class="prompt">$</span> curl -fsSL https://contorch.com/install | bash</code></pre>
+      <button type="button" class="copy" aria-label="Copy command">Copy</button>
+    </div>
+    <p>Installs context-orchestrator, meeting-capture, the menu-bar monitor, and the Claude Code
+    auto-context hook in one go. It currently <strong>builds meeting-capture from source</strong> and
+    needs the Xcode Command Line Tools. Audio permissions and a Gemini key are still required. If you
+    already installed capture with Homebrew, use the steps above instead — this path won't preserve
+    the signed binary.</p>
+  </details>
+</section>
+
+<section id="claude-code" class="cc">
+  <h2><span class="hash">##</span> Claude Code memory that includes your meetings</h2>
+  <p class="section-sub">Claude Code remembers what happens in the editor. contorch adds what happened
+  outside it.</p>
+  <div class="cc-grid">
+    <div>
+      <p>A decision made on a call should be available in your next coding session. contorch captures
+      the conversation, indexes the transcript on your Mac, and makes it searchable from Claude Code
+      alongside your notes, sources, and saved lessons — complementing Claude's own <code>CLAUDE.md</code>
+      and auto-memory, not replacing them.</p>
+      <p>With the auto-context hook installed, the top hits are loaded into every prompt without
+      asking. Without it, any MCP-connected agent can still search explicitly.</p>
+      <a class="btn primary" href="#install">Set up contorch for Claude Code →</a>
+    </div>
+    <div class="qa-list">
+      <div class="qa">
+        <p class="q">&gt; what did we decide about the retry fix? cite the meeting.</p>
+        <p class="a">Ship it tonight behind a flag; staging needs the flag service up first.
+        <span class="cite">→ meeting-2026-07-11.md, 10:02</span></p>
+      </div>
+      <div class="qa">
+        <p class="q">&gt; pick up the auth-refactor work</p>
+        <p class="a">Loads the task manifest — 3 sources, 2 meetings, 1 lesson — and starts
+        where you stopped: the token-rotation PR.</p>
+      </div>
+      <div class="qa">
+        <p class="q">&gt; why does staging keep failing?</p>
+        <p class="a">A lesson saved on Jun 12: staging deploys need the flag service up first.
+        <span class="cite">→ repo knowledge, context-orchestrator</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="how" class="sources">
-  <h2><span class="hash">##</span> Where the context comes from</h2>
-  <p class="section-sub">Four streams, all landing on your disk. Two of them need nothing from you at all.</p>
+  <h2><span class="hash">##</span> Meetings are the start. Keep the rest, too.</h2>
+  <p class="section-sub">Four inputs to one memory layer, all on your disk. Meetings are captured
+  once set up; notes and documents are added by you; lessons are saved through your agent.</p>
   <div class="source-grid">
     <div class="source">
-      <p class="step-k">Conversations <span class="tag">automatic</span></p>
-      <h3>Your meetings, word for word.</h3>
-      <p>Take the call like always. contorch hears your mic go live and transcribes
-      both sides — <code>Me</code> and <code>Them</code> — into Markdown. Every
-      promise, decision, and number survives the meeting. No bot joins.</p>
+      <p class="step-k">Conversations <span class="tag">captured</span></p>
+      <h3>Your meetings, saved as searchable transcripts.</h3>
+      <p>Take the call like always — no bot joins. contorch notices your mic go live and captures
+      system audio and, on macOS 15+, your microphone, labeled <code>Me</code> and <code>Them</code>.
+      Review the transcript when exact wording or numbers matter.</p>
       <pre><code><span class="tl-them">Them</span>  can we ship it before the freeze?
 <span class="tl-me">Me</span>    done — it ships tonight.</code></pre>
     </div>
     <div class="source">
-      <p class="step-k">Docs &amp; links <span class="tag">one drop</span></p>
+      <p class="step-k">Docs &amp; links <span class="tag">you add</span></p>
       <h3>The spec lives with the task.</h3>
       <p>Attach files, PRs, dashboards, and threads to the work they belong to —
       one call, and every future session finds them.</p>
       <pre><code>+ add_source auth-spec-v2.pdf → auth-refactor</code></pre>
     </div>
     <div class="source">
-      <p class="step-k">Decisions &amp; notes <span class="tag">one line</span></p>
+      <p class="step-k">Decisions &amp; notes <span class="tag">you add</span></p>
       <h3>Say it once, never again.</h3>
       <p>Write “JWT ships behind a flag” one time. Stop re-explaining your
       project's state to every fresh chat window.</p>
       <pre><code>+ note "JWT rotation ships behind a flag"</code></pre>
     </div>
     <div class="source">
-      <p class="step-k">Lessons agents learn <span class="tag">automatic</span></p>
+      <p class="step-k">Lessons <span class="tag">via your agent</span></p>
       <h3>Hard-won knowledge stays won.</h3>
       <p>When an agent works out your test command or a deploy gotcha, it saves
-      the lesson. The next agent — or the next laptop — doesn't rediscover it.</p>
+      the lesson. The next session on this Mac doesn't rediscover it.</p>
       <pre><code>+ lesson "staging needs the flag service up first"</code></pre>
     </div>
   </div>
 </section>
 
-<section class="recall">
-  <h2><span class="hash">##</span> What you get back</h2>
-  <p class="section-sub">Ask like you'd ask a colleague who was in the room. Answers come with receipts.</p>
-  <div class="qa-list">
-    <div class="qa">
-      <p class="q">&gt; what did we decide about pricing?</p>
-      <p class="a">Usage-based; the annual discount is parked until Q4.
-      <span class="cite">→ meeting-2026-07-08.md, 14:31</span></p>
+<section class="flow">
+  <h2><span class="hash">##</span> Local memory. Cloud transcription.</h2>
+  <p class="section-sub">What stays on your Mac, and what leaves it.</p>
+  <div class="flow-grid">
+    <div class="flow-col">
+      <p class="step-k">Stays on your Mac</p>
+      <ul>
+        <li>Transcripts — Markdown in <code>~/transcripts</code>, yours to grep, edit, or delete.</li>
+        <li>Notes, sources, tasks, and lessons — SQLite plus a local vector index.</li>
+        <li>Search — served to agents from <code>127.0.0.1</code>, not from a server of ours.</li>
+        <li>No contorch account. No cloud sync.</li>
+      </ul>
     </div>
-    <div class="qa">
-      <p class="q">&gt; pick up the auth-refactor work</p>
-      <p class="a">Loads the full manifest — 3 sources, 2 meetings, 1 lesson —
-      and starts where you stopped: the token-rotation PR.</p>
-    </div>
-    <div class="qa">
-      <p class="q">&gt; why does staging keep failing?</p>
-      <p class="a">A lesson saved on Jun 12: staging deploys need the flag
-      service up first. <span class="cite">→ repo knowledge, context-orchestrator</span></p>
-    </div>
-  </div>
-</section>
-
-<section class="thesis">
-  <p>Most of what an agent needs already happened —<br>
-  in a conversation, a doc, a lesson learned.<br>
-  <span>contorch just keeps it.</span></p>
-</section>
-
-<section id="install" class="install">
-  <h2><span class="hash">##</span> Install</h2>
-  <p class="section-sub">One command stands up the whole stack. Re-run it anytime; it's idempotent.</p>
-  <div class="install-grid">
-    <div class="card">
-      <p class="step-k">1 · Bootstrap</p>
-      <pre><code><span class="prompt">$</span> curl -fsSL contorch.com/install | bash</code></pre>
-      <p>Installs the context-orchestrator MCP server, the meeting-capture daemon,
-      a menu-bar monitor, and the Claude&nbsp;Code auto-context hook. Missing
-      prerequisites arrive via Homebrew.</p>
-    </div>
-    <div class="card">
-      <p class="step-k">2 · Click what macOS asks you to</p>
-      <p>Two permissions for meeting capture: <strong>Screen &amp; System Audio
-      Recording</strong> and <strong>Microphone</strong>. The script ends with a
-      punch-list, and <code>doctor</code> commands verify every piece.</p>
-      <pre><code><span class="prompt">$</span> transcript-watcher doctor
-<span class="ok">✓</span> all checks passed</code></pre>
-    </div>
-    <div class="card">
-      <p class="step-k">3 · Optional: Gemini key</p>
-      <p>Meeting transcription runs on Gemini — a free key from
-      <a href="https://aistudio.google.com/apikey" rel="noopener">aistudio.google.com/apikey</a>,
-      about $0.0002 per meeting-minute beyond the free tier. Skip it and everything
-      else stays fully local: tasks, sources, search, clipboard transcripts.</p>
-      <p class="quiet">Then restart Claude Code and just work.</p>
+    <div class="flow-col">
+      <p class="step-k">Leaves your Mac</p>
+      <ul>
+        <li>Meeting audio is sent to Google's Gemini API to produce the transcript. contorch deletes
+        its temporary local audio afterward; handling on Google's side is governed by the
+        <a href="https://ai.google.dev/gemini-api/terms" rel="noopener">Gemini API terms</a>
+        (unpaid and paid tiers differ).</li>
+        <li>Context an agent retrieves becomes available to that agent and may be processed by its
+        model provider.</li>
+        <li>Cost: contorch is free and open source. Gemini transcription is about $0.005 per
+        meeting-minute <em>per channel</em> at list prices — roughly $0.60 for a two-sided hour —
+        beyond any free tier.</li>
+      </ul>
     </div>
   </div>
+  <p class="note">Open source, Apache-2.0, on <a href="https://github.com/contorch" rel="noopener">GitHub</a> —
+  read every line that can hear you. (This website itself loads Google Fonts and Google Analytics.)</p>
 </section>
 
-<section class="trust">
-  <ul>
-    <li><strong>Local-first.</strong> SQLite and a local vector index on your disk.
-    No cloud sync, no account. Meeting audio goes to Gemini for transcription only,
-    then gets deleted.</li>
-    <li><strong>Open source.</strong> Apache-2.0, on
-    <a href="https://github.com/contorch" rel="noopener">GitHub</a>. Read every line
-    that can hear you.</li>
-    <li><strong>Your agents, not ours.</strong> Standard MCP — Claude Code today;
-    anything that speaks the protocol tomorrow.</li>
-    <li><strong>Plain files.</strong> Transcripts are Markdown in
-    <code>~/transcripts</code> — yours to grep, edit, or delete.</li>
-  </ul>
+<section class="faq">
+  <h2><span class="hash">##</span> Before your first call</h2>
+  <dl>
+    <dt>Which Macs?</dt>
+    <dd>macOS 13 or later (ScreenCaptureKit). Own-voice <code>Me</code> capture needs macOS 15+; on
+    13–14 you get the other side only. Apple Silicon and Intel.</dd>
+    <dt>My voice is missing from transcripts.</dt>
+    <dd>The Microphone grant for <em>sysaudio</em> was denied or never prompted. Check
+    <strong>Privacy &amp; Security → Microphone</strong>, then <code>meeting-capture doctor</code>.</dd>
+    <dt>Can I pause it?</dt>
+    <dd><code>meeting-capture pause</code> and <code>meeting-capture resume</code>. It only records
+    while another app is using your microphone — no call, no capture.</dd>
+    <dt>What if I skip the Gemini key?</dt>
+    <dd>Nothing is transcribed. Notes, sources, tasks, lessons, and search still work, fully local.</dd>
+    <dt>Another Mac?</dt>
+    <dd>There's no sync. Transcripts are plain files — copy <code>~/transcripts</code> over and the
+    watcher indexes them.</dd>
+    <dt>Which agents?</dt>
+    <dd>Anything that speaks MCP. Claude Code is what <code>setup.sh</code> registers today; the
+    auto-context hook is Claude Code-only.</dd>
+  </dl>
+</section>
+
+<section class="cta-end">
+  <h2>Install on macOS</h2>
+  <div class="install-cta">
+    <code data-cmd="brew install contorch/tap/meeting-capture"><span class="prompt">$</span> brew install contorch/tap/meeting-capture</code>
+    <button type="button" class="copy" data-copy="prev" aria-label="Copy install command">Copy</button>
+  </div>
+  <p class="cta-note">Then <a href="#install">the four steps that make it work ↑</a></p>
 </section>
 </main>
 
